@@ -1,4 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { advertsPersistReducer } from "./adverts/advertsSlices";
 import {
   persistStore,
   FLUSH,
@@ -11,7 +12,7 @@ import {
 
 export const store = configureStore({
   reducer: {
-    adverts: null,
+    adverts: advertsPersistReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
