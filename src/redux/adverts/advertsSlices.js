@@ -5,12 +5,12 @@ import { getAdverts } from "./advertsOperations";
 
 const handlePending = (state) => {
   state.isLoading = true;
-  state.advertsError = null;
+  state.error = null;
 };
 
 const handleRejected = (state, { payload }) => {
   state.isLoading = false;
-  state.advertsError = payload;
+  state.error = payload;
 };
 
 const advertsSlices = createSlice({
@@ -18,7 +18,7 @@ const advertsSlices = createSlice({
   initialState: {
     items: [],
     isLoading: false,
-    advertsError: null,
+    error: null,
   },
   extraReducers: (builder) => {
     builder
@@ -27,7 +27,7 @@ const advertsSlices = createSlice({
       .addCase(getAdverts.fulfilled, (state, { payload }) => {
         state.items = payload;
         state.isLoading = false;
-        state.advertsError = null;
+        state.error = null;
       });
   },
 });
