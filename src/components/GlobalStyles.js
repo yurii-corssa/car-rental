@@ -35,6 +35,10 @@ export const GlobalStyles = createGlobalStyle`
     display: block;
   }
 
+  input, button {
+    font: inherit;
+  }
+
 `;
 
 export const ButtonStyled = styled.button`
