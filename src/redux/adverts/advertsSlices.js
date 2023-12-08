@@ -17,9 +17,20 @@ const advertsSlices = createSlice({
   name: "adverts",
   initialState: {
     items: [],
-    count: 0,
+    countItems: 0,
+    itemsPerPage: 12,
+    favoritesItems: [],
     isLoading: false,
     error: null,
+  },
+  reducers: {
+    toggleFavorite({ favoritesItems }, { payload }) {
+      if (favoritesItems.includes(payload)) {
+        favoritesItems = favoritesItems.filter((item) => item !== payload);
+      } else {
+        favoritesItems.push(payload);
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -37,11 +48,13 @@ const advertsSlices = createSlice({
         state.error = payload;
       })
       .addCase(getCountAdverts.fulfilled, (state, { payload }) => {
-        state.count = payload;
+        state.countItems = payload;
         state.error = null;
       });
   },
 });
+
+export const { toggleFavorite } = advertsSlices.actions;
 
 const persistConfig = {
   key: "adverts",

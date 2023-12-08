@@ -5,6 +5,7 @@ import {
   selectAdverts,
   selectIsLoading,
   selectCount,
+  selectFavorites,
 } from "../../redux/adverts/advertsSelectors";
 import Loader from "components/Loader/Loader";
 import { useEffect, useState } from "react";
@@ -30,6 +31,7 @@ const AdvertsList = () => {
   const adverts = useSelector(selectAdverts);
   const isLoading = useSelector(selectIsLoading);
   const count = useSelector(selectCount);
+  const favorites = useSelector(selectFavorites);
 
   const handleLoadMore = () => {
     setLimit((state) => state + DEFAULT_COUNT);
@@ -40,7 +42,11 @@ const AdvertsList = () => {
   return (
     <AdvertsListContainer>
       {adverts.map((advert) => {
-        return <AdvertItem key={advert.id} data={advert} />;
+        const isFavorite = favorites.includes(advert.id);
+
+        return (
+          <AdvertItem key={advert.id} data={advert} isFavorite={isFavorite} />
+        );
       })}
       {isLoading && <Loader />}
       {count === limit}

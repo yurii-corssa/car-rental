@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   AdvertItemCard,
   CardBtn,
@@ -11,16 +10,18 @@ import {
   FavoriteBtn,
   FavoriteSvg,
 } from "./AdvertItem.styled";
+import { useDispatch } from "react-redux";
+import { toggleFavorite } from "../../redux/adverts/advertsSlices";
 
-const AdvertItem = ({ data }) => {
-  const [isFavorite, setIsFavorite] = useState(false);
+const AdvertItem = ({ data, isFavorite }) => {
+  const dispatch = useDispatch();
 
-  const { img, make, model, year, rentalPrice } = data;
+  const { id, img, make, model, year, rentalPrice } = data;
 
   const cardInfo = "";
 
   const handleFavoriteClick = () => {
-    setIsFavorite(!isFavorite);
+    dispatch(toggleFavorite(id));
   };
 
   const handleLearnMoreClick = () => {};
