@@ -40,7 +40,7 @@ const AdvertsList = () => {
   return (
     <AdvertsListContainer>
       {adverts.map((advert) => {
-        return <AdvertItem key={advert.id} />;
+        return <AdvertItem key={advert.id} data={advert} />;
       })}
       {isLoading && <Loader />}
       {count === limit}
