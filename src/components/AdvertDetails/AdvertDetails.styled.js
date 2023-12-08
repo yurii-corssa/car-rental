@@ -84,7 +84,6 @@ export const Descriptions = styled.p`
 
 export const AccessoriesWrapper = styled.div`
   display: flex;
-  width: 461px;
   flex-direction: column;
   align-items: flex-start;
   gap: 8px;
@@ -116,7 +115,6 @@ export const Divider = styled.span`
 `;
 
 export const ConditionsWrapper = styled.div`
-  width: 461px;
   height: 100px;
   flex-direction: column;
   align-items: flex-start;
@@ -126,8 +124,9 @@ export const ConditionsWrapper = styled.div`
 export const ConditionsElementsWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
+  width: 425px;
   gap: 8px;
-  width: 461px;
+  padding-top: 8px;
 `;
 
 export const ConditionsElements = styled.p`
@@ -135,11 +134,20 @@ export const ConditionsElements = styled.p`
   padding: 7px 14px;
   justify-content: center;
   align-items: center;
-  gap: 8px;
+  gap: 2px;
+  font-size: 12px;
+  line-height: 18px;
+  letter-spacing: -0.24px;
   border-radius: 35px;
   background: var(--lightGray);
+
+  span {
+    font-weight: 600;
+    color: var(--accent);
+  }
 `;
 
 export const DetailsBtn = styled(ButtonStyled)`
-  //
+  padding: 12px 50px;
+  width: 168px;
 `;

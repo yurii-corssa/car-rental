@@ -70,7 +70,7 @@ const AdvertDetails = ({ data, onClose }) => {
           <BlockTitle>Rental Conditions:</BlockTitle>
           <ConditionsElementsWrapper>
             <ConditionsElements>
-              Minimum age : <span>25</span>
+              Minimum age: <span>25</span>
             </ConditionsElements>
             <ConditionsElements>
               Valid driver&rsquo;s license
