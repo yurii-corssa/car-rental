@@ -16,7 +16,6 @@ import {
   DetailsBtn,
   TitleWrapper,
   DataWrapper,
-  Divider,
 } from "./AdvertDetails.styled";
 import { addDividers } from "helpers/addDividers";
 
