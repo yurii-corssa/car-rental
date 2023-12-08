@@ -23,7 +23,9 @@ export const FavoriteBtn = styled.button`
   right: 14px;
   background: none;
   border: none;
-  z-index: 1;
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
 
   svg {
     stroke: ${({ $isFavorite }) => {
@@ -53,8 +55,8 @@ export const FavoriteBtn = styled.button`
 `;
 
 export const FavoriteSvg = styled(Heart)`
-  width: 18px;
-  height: 18px;
+  width: 100%;
+  height: 100%;
 `;
 
 export const CardThumbImg = styled.div`

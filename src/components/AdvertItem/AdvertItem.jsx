@@ -13,7 +13,7 @@ import {
 import { useDispatch } from "react-redux";
 import { toggleFavorite } from "../../redux/adverts/advertsSlices";
 
-const AdvertItem = ({ data, isFavorite }) => {
+const AdvertItem = ({ data, isFavorite, onOpen }) => {
   const dispatch = useDispatch();
 
   const { id, img, make, model, year, rentalPrice } = data;
@@ -24,16 +24,18 @@ const AdvertItem = ({ data, isFavorite }) => {
     dispatch(toggleFavorite(id));
   };
 
-  const handleLearnMoreClick = () => {};
+  const handleLearnMoreClick = () => {
+    onOpen(data);
+  };
 
   return (
     <AdvertItemCard>
-      <FavoriteBtn onClick={handleFavoriteClick} $isFavorite={isFavorite}>
-        <FavoriteSvg />
-      </FavoriteBtn>
       <CardThumbImg>
         <CardImg src={img} alt={`${make} ${model}`} loading="lazy" />
       </CardThumbImg>
+      <FavoriteBtn onClick={handleFavoriteClick} $isFavorite={isFavorite}>
+        <FavoriteSvg />
+      </FavoriteBtn>
       <CardContent>
         <CardTitle>
           {make} <span>{model}</span>, {year}

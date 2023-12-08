@@ -6,6 +6,10 @@ export const GlobalStyles = createGlobalStyle`
     --accentActive: #0B44CD;
     --white: #FFF;
     --black: #121417;
+    --lightGray: #f9f9f9;
+    --semiTransparent: rgba(18, 20, 23, 0.50);
+    --nearlyTransparent: rgba(18, 20, 23, 0.10);
+    --backdrop: rgba(0, 0, 0, 0.5);
     --transition: 300ms cubic-bezier(0.4, 0, 0.2, 1);
   }
 

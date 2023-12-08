@@ -13,11 +13,16 @@ import {
   getAdverts,
   getCountAdverts,
 } from "../../redux/adverts/advertsOperations";
+import Modal from "components/Modal/Modal";
+import AdvertDetails from "components/AdvertDetails/AdvertDetails";
 
 const DEFAULT_COUNT = 12;
 
 const AdvertsList = () => {
   const [limit, setLimit] = useState(DEFAULT_COUNT);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [openAdvert, setOpenAdvert] = useState(null);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -32,30 +37,50 @@ const AdvertsList = () => {
   const isLoading = useSelector(selectIsLoading);
   const count = useSelector(selectCount);
   const favorites = useSelector(selectFavorites);
+  const showButton = limit < count;
 
   const handleLoadMore = () => {
     setLimit((state) => state + DEFAULT_COUNT);
   };
 
-  const showButton = limit < count;
+  const openModal = (dataAdvert) => {
+    setIsModalOpen(true);
+    setOpenAdvert(dataAdvert);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setOpenAdvert(null);
+  };
 
   return (
-    <AdvertsListContainer>
-      {adverts.map((advert) => {
-        const isFavorite = favorites.includes(advert.id);
-
-        return (
-          <AdvertItem key={advert.id} data={advert} isFavorite={isFavorite} />
-        );
-      })}
-      {isLoading && <Loader />}
-      {count === limit}
-      {showButton && (
-        <LoadMoreBtn type="button" onClick={handleLoadMore}>
-          Load More
-        </LoadMoreBtn>
+    <>
+      <AdvertsListContainer>
+        {adverts.map((advert) => {
+          const isFavorite = favorites.includes(advert.id);
+          return (
+            <AdvertItem
+              key={advert.id}
+              data={advert}
+              isFavorite={isFavorite}
+              onOpen={openModal}
+            />
+          );
+        })}
+        {isLoading && <Loader />}
+        {count === limit}
+        {showButton && (
+          <LoadMoreBtn type="button" onClick={handleLoadMore}>
+            Load More
+          </LoadMoreBtn>
+        )}
+      </AdvertsListContainer>
+      {isModalOpen && (
+        <Modal onClose={closeModal}>
+          <AdvertDetails data={openAdvert} onClose={closeModal} />
+        </Modal>
       )}
-    </AdvertsListContainer>
+    </>
   );
 };
 
