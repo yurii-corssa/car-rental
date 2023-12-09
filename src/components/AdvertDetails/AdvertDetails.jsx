@@ -1,4 +1,4 @@
-import { createDetailsArr } from "helpers/createDetailsArr";
+import DetailsInfo from "components/DetailsInfo/DetailsInfo";
 import {
   DetailsContainer,
   CloseBtn,
@@ -6,7 +6,6 @@ import {
   DetailsImg,
   MainDetailsWrapper,
   DetailsTitle,
-  BlockInfo,
   Descriptions,
   AccessoriesWrapper,
   BlockTitle,
@@ -17,10 +16,8 @@ import {
   TitleWrapper,
   DataWrapper,
 } from "./AdvertDetails.styled";
-import { addDividers } from "helpers/addDividers";
 
 const AdvertDetails = ({ data, onClose }) => {
-  console.log(data);
   const {
     img,
     make,
@@ -29,15 +26,15 @@ const AdvertDetails = ({ data, onClose }) => {
     rentalPrice,
     description,
     mileage,
-    accessories,
-    functionalities,
+    rentalConditions,
   } = data;
-
-  const detailsStr = addDividers(createDetailsArr(data), 5);
-  const accessoryFeaturesStr = addDividers(
-    [...accessories, ...functionalities],
-    0
-  );
+  const rentalConditionsArr = rentalConditions.split("\n");
+  const minimumAge = rentalConditionsArr[0].split(" ");
+  const newMileage = mileage
+    .toString()
+    .split("")
+    .map((el, i) => (i === 0 ? `${el},` : el))
+    .join("");
 
   return (
     <DetailsContainer>
@@ -54,7 +51,7 @@ const AdvertDetails = ({ data, onClose }) => {
               {make} <span>{model}</span>, {year}
             </DetailsTitle>
 
-            <BlockInfo>{detailsStr}</BlockInfo>
+            <DetailsInfo data={data} variant="modalInfo" />
           </TitleWrapper>
 
           <Descriptions>{description}</Descriptions>
@@ -63,28 +60,28 @@ const AdvertDetails = ({ data, onClose }) => {
         <AccessoriesWrapper>
           <BlockTitle>Accessories and functionalities:</BlockTitle>
 
-          <BlockInfo>{accessoryFeaturesStr}</BlockInfo>
+          <DetailsInfo data={data} variant="modalAccessory" />
         </AccessoriesWrapper>
 
         <ConditionsWrapper>
           <BlockTitle>Rental Conditions:</BlockTitle>
           <ConditionsElementsWrapper>
             <ConditionsElements>
-              Minimum age: <span>25</span>
+              Minimum age: <span>{minimumAge[2]}</span>
             </ConditionsElements>
+            <ConditionsElements>{rentalConditionsArr[1]}</ConditionsElements>
+            <ConditionsElements>{rentalConditionsArr[2]}</ConditionsElements>
             <ConditionsElements>
-              Valid driver&rsquo;s license
-            </ConditionsElements>
-            <ConditionsElements>Security deposite required</ConditionsElements>
-            <ConditionsElements>
-              Mileage: <span>{mileage}</span>
+              Mileage: <span>{newMileage}</span>
             </ConditionsElements>
             <ConditionsElements>
               Price: <span>{rentalPrice}</span>
             </ConditionsElements>
           </ConditionsElementsWrapper>
         </ConditionsWrapper>
-        <DetailsBtn>Rental car</DetailsBtn>
+        <DetailsBtn as="a" href="tel:+380730000000">
+          Rental car
+        </DetailsBtn>
       </DataWrapper>
     </DetailsContainer>
   );

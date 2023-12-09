@@ -24,11 +24,13 @@ const advertsSlices = createSlice({
     error: null,
   },
   reducers: {
-    toggleFavorite({ favoritesItems }, { payload }) {
-      if (favoritesItems.includes(payload)) {
-        favoritesItems = favoritesItems.filter((item) => item !== payload);
+    toggleFavorite(state, { payload }) {
+      if (state.favoritesItems.includes(payload)) {
+        state.favoritesItems = state.favoritesItems.filter(
+          (item) => item !== payload
+        );
       } else {
-        favoritesItems.push(payload);
+        state.favoritesItems.push(payload);
       }
     },
   },

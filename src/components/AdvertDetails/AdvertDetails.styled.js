@@ -5,12 +5,9 @@ import { styled } from "styled-components";
 export const DetailsContainer = styled.div`
   display: flex;
   flex-direction: column;
-  /* gap: 24px; */
   width: 541px;
+  height: 100%;
   padding: 40px;
-  border-radius: 24px;
-  background-color: var(--white);
-  overflow: auto;
 `;
 
 export const DataWrapper = styled.div`
@@ -95,16 +92,6 @@ export const BlockTitle = styled.h3`
   line-height: 20px;
 `;
 
-export const BlockInfo = styled.p`
-  font-size: 12px;
-  line-height: 18px;
-  color: var(--semiTransparent);
-
-  span {
-    vertical-align: middle;
-  }
-`;
-
 export const Divider = styled.span`
   display: inline-block;
   width: 1px;
@@ -115,7 +102,6 @@ export const Divider = styled.span`
 `;
 
 export const ConditionsWrapper = styled.div`
-  height: 100px;
   flex-direction: column;
   align-items: flex-start;
   gap: 8px;
@@ -150,4 +136,5 @@ export const ConditionsElements = styled.p`
 export const DetailsBtn = styled(ButtonStyled)`
   padding: 12px 50px;
   width: 168px;
+  text-decoration: none;
 `;

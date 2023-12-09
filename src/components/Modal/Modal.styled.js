@@ -14,5 +14,6 @@ export const Backdrop = styled.div`
 
 export const ModalContainer = styled.div`
   position: relative;
-  height: 90vh;
+  border-radius: 24px;
+  background-color: var(--white);
 `;

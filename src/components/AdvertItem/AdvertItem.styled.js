@@ -82,19 +82,37 @@ export const CardImg = styled.img`
 `;
 
 export const CardContent = styled.div`
-  //
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 270px;
+  padding: 14px 0 28px 0;
+`;
+
+export const CardTitleWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 `;
 
 export const CardTitle = styled.h2`
-  //
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+
+  span {
+    color: var(--accent);
+  }
 `;
 
 export const CardPrice = styled.p`
-  //
-`;
-
-export const CardInfo = styled.p`
-  //
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  color: var(--accent);
 `;
 
 export const CardBtn = styled(ButtonStyled)`
