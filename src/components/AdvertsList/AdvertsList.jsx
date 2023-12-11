@@ -13,6 +13,7 @@ import Loader from "components/Loader/Loader";
 import { useEffect, useState } from "react";
 import {
   getAdverts,
+  getAllMake,
   getCountAdverts,
 } from "../../redux/adverts/advertsOperations";
 import Modal from "components/Modal/Modal";
@@ -22,20 +23,17 @@ import { setItemsPerPage } from "../../redux/adverts/advertsSlices";
 const DEFAULT_COUNT = 12;
 
 const AdvertsList = () => {
-  // const [limit, setLimit] = useState(DEFAULT_COUNT);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [openAdvert, setOpenAdvert] = useState(null);
-  // const { make } = useSelector(selectFilter);
   const [make] = useState(useSelector(selectFilter).make);
   const itemsPerPage = useSelector(selectItemsPerPage);
-
-  // console.log(make);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchAdvertsData = async () => {
       if (itemsPerPage <= DEFAULT_COUNT) {
+        dispatch(getAllMake());
         await dispatch(getCountAdverts({ make })).unwrap();
       }
       dispatch(getAdverts({ itemsPerPage, make }));
@@ -52,7 +50,6 @@ const AdvertsList = () => {
 
   const handleLoadMore = () => {
     dispatch(setItemsPerPage(itemsPerPage + DEFAULT_COUNT));
-    // setLimit((state) => state + DEFAULT_COUNT);
   };
 
   const openModal = (dataAdvert) => {

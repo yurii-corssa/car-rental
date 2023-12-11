@@ -3,7 +3,6 @@ import { CatalogPageContainer } from "./CatalogPage.styled";
 import AdvertsList from "components/AdvertsList/AdvertsList";
 import Filter from "components/Filter/Filter";
 import { useDispatch } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
 import { resetAdvertsState } from "../../redux/adverts/advertsSlices";
 
 const CatalogPage = () => {

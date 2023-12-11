@@ -1,12 +1,16 @@
 import Dropdown from "components/Dropdown/Dropdown";
-import { FilterContainer, SearchBtn } from "./Filter.styled";
+import {
+  DropdownLabel,
+  DropdownWrapper,
+  FilterContainer,
+  SearchBtn,
+} from "./Filter.styled";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectAllMake,
   selectFilter,
 } from "../../redux/adverts/advertsSelectors";
 import { useState } from "react";
-import { setFilter } from "../../redux/adverts/advertsSlices";
 import {
   getAdverts,
   getCountAdverts,
@@ -26,11 +30,15 @@ const Filter = () => {
 
   return (
     <FilterContainer>
-      <Dropdown
-        options={allMake}
-        placeholder={filter.make ? filter.make : "Enter the text"}
-        onSelect={setMake}
-      />
+      <DropdownWrapper>
+        <DropdownLabel>Car brand</DropdownLabel>
+
+        <Dropdown
+          options={allMake}
+          placeholder={filter.make ? filter.make : "Enter the text"}
+          onSelect={setMake}
+        />
+      </DropdownWrapper>
 
       <SearchBtn type="button" onClick={handleClick}>
         Search

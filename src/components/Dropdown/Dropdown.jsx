@@ -8,10 +8,10 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { setFilter } from "../../redux/adverts/advertsSlices";
 import { selectFilter } from "../../redux/adverts/advertsSelectors";
+import ChevronDown from "components/Icons/ChevronDown";
 
 const CarDropdown = ({ options, placeholder, onSelect }) => {
   const [isOpen, setIsOpen] = useState(false);
-  // const [selectedOption, setSelectedOption] = useState("_");
   const { make } = useSelector(selectFilter);
   const dropdownRef = useRef();
   const dispatch = useDispatch();
@@ -40,7 +40,6 @@ const CarDropdown = ({ options, placeholder, onSelect }) => {
 
   const handleSelect = (option) => {
     dispatch(setFilter({ make: option }));
-    // setSelectedOption(option);
     setIsOpen(false);
     onSelect(option);
   };
@@ -49,6 +48,7 @@ const CarDropdown = ({ options, placeholder, onSelect }) => {
     <DropdownContainer ref={dropdownRef}>
       <DropdownButton type="button" onClick={() => setIsOpen(!isOpen)}>
         {make || placeholder}
+        <ChevronDown />
       </DropdownButton>
       {isOpen && (
         <DropdownContent>

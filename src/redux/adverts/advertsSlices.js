@@ -1,7 +1,7 @@
 import { persistReducer } from "redux-persist";
 import { createSlice } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
-import { getAdverts, getCountAdverts } from "./advertsOperations";
+import { getAdverts, getAllMake, getCountAdverts } from "./advertsOperations";
 
 const initialState = {
   items: [],
@@ -66,8 +66,16 @@ const advertsSlices = createSlice({
         state.error = error;
       })
       .addCase(getCountAdverts.fulfilled, (state, { payload }) => {
-        state.countItems = payload.count;
-        state.allMake = payload.allMake;
+        state.countItems = payload;
+      })
+      .addCase(getAllMake.pending, (state) => {
+        state.error = null;
+      })
+      .addCase(getAllMake.rejected, (state, { error }) => {
+        state.error = error;
+      })
+      .addCase(getAllMake.fulfilled, (state, { payload }) => {
+        state.allMake = payload;
       });
   },
 });

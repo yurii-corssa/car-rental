@@ -23,7 +23,18 @@ export const getCountAdverts = createAsyncThunk(
     try {
       const res = await axios.get(`/adverts?make=${make}`);
 
-      console.log(res.data);
+      return res.data.length;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const getAllMake = createAsyncThunk(
+  "adverts/getAllMake",
+  async (_, thunkAPI) => {
+    try {
+      const res = await axios.get("/adverts");
 
       const allMake = res.data
         .map((advert) => advert.make)
@@ -35,7 +46,7 @@ export const getCountAdverts = createAsyncThunk(
           return prevArr;
         }, []);
 
-      return { count: res.data.length, allMake };
+      return allMake;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
