@@ -1,15 +1,9 @@
-import AdvertItem from "components/AdvertItem/AdvertItem";
-import {
-  AdvertsListContainer,
-  LoadMoreBtn,
-  LoadMoreWrapper,
-} from "./AdvertsList.styled";
+import { LoadMoreBtn, LoadMoreWrapper } from "./Catalog.styled";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectAdverts,
   selectIsLoading,
   selectCount,
-  selectFavorites,
   selectFilter,
   selectItemsPerPage,
 } from "../../redux/adverts/advertsSelectors";
@@ -20,15 +14,12 @@ import {
   getAllMake,
   getCountAdverts,
 } from "../../redux/adverts/advertsOperations";
-import Modal from "components/Modal/Modal";
-import AdvertDetails from "components/AdvertDetails/AdvertDetails";
 import { setItemsPerPage } from "../../redux/adverts/advertsSlices";
+import AdvertsList from "components/AdvertsList/AdvertsList";
 
 const DEFAULT_COUNT = 12;
 
-const AdvertsList = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [openAdvert, setOpenAdvert] = useState(null);
+const Catalog = () => {
   const [make] = useState(useSelector(selectFilter).make);
   const itemsPerPage = useSelector(selectItemsPerPage);
 
@@ -49,39 +40,18 @@ const AdvertsList = () => {
   const adverts = useSelector(selectAdverts);
   const isLoading = useSelector(selectIsLoading);
   const count = useSelector(selectCount);
-  const favorites = useSelector(selectFavorites);
   const showButton = itemsPerPage < count;
 
   const handleLoadMore = () => {
     dispatch(setItemsPerPage(itemsPerPage + DEFAULT_COUNT));
   };
 
-  const openModal = (dataAdvert) => {
-    setIsModalOpen(true);
-    setOpenAdvert(dataAdvert);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setOpenAdvert(null);
-  };
-
   return (
     <>
-      <AdvertsListContainer>
-        {adverts.map((advert) => {
-          const isFavorite = favorites.includes(advert.id);
-          return (
-            <AdvertItem
-              key={advert.id}
-              data={advert}
-              isFavorite={isFavorite}
-              onOpen={openModal}
-            />
-          );
-        })}
-      </AdvertsListContainer>
+      <AdvertsList adverts={adverts} />
+
       {isLoading && <Loader />}
+
       <LoadMoreWrapper>
         {showButton && (
           <LoadMoreBtn type="button" onClick={handleLoadMore}>
@@ -89,13 +59,8 @@ const AdvertsList = () => {
           </LoadMoreBtn>
         )}
       </LoadMoreWrapper>
-      {isModalOpen && (
-        <Modal onClose={closeModal}>
-          <AdvertDetails data={openAdvert} onClose={closeModal} />
-        </Modal>
-      )}
     </>
   );
 };
 
-export default AdvertsList;
+export default Catalog;
