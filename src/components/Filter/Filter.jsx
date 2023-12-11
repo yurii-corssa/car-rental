@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   selectAllMake,
   selectFilter,
+  selectItemsPerPage,
 } from "../../redux/adverts/advertsSelectors";
 import { useState } from "react";
 import {
@@ -19,13 +20,14 @@ import {
 const Filter = () => {
   const [make, setMake] = useState("");
 
+  const itemsPerPage = useSelector(selectItemsPerPage);
   const allMake = useSelector(selectAllMake);
   const dispatch = useDispatch();
   const filter = useSelector(selectFilter);
 
   const handleClick = async () => {
     await dispatch(getCountAdverts({ make })).unwrap();
-    dispatch(getAdverts({ make }));
+    dispatch(getAdverts({ itemsPerPage, make }));
   };
 
   return (
