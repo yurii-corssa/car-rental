@@ -5,7 +5,7 @@ axios.defaults.baseURL = "https://657099a609586eff6641af70.mockapi.io";
 
 export const getAdverts = createAsyncThunk(
   "adverts/getAdverts",
-  async ({ page = 1, itemsPerPage = 12, make = "" }, thunkAPI) => {
+  async ({ page = 1, itemsPerPage, make = "" }, thunkAPI) => {
     try {
       const res = await axios.get(
         `/adverts?page=${page}&limit=${itemsPerPage}&make=${make}`
