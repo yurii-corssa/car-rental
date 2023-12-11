@@ -6,6 +6,8 @@ import {
   selectIsLoading,
   selectCount,
   selectFavorites,
+  selectFilter,
+  selectItemsPerPage,
 } from "../../redux/adverts/advertsSelectors";
 import Loader from "components/Loader/Loader";
 import { useEffect, useState } from "react";
@@ -15,32 +17,42 @@ import {
 } from "../../redux/adverts/advertsOperations";
 import Modal from "components/Modal/Modal";
 import AdvertDetails from "components/AdvertDetails/AdvertDetails";
+import { setItemsPerPage } from "../../redux/adverts/advertsSlices";
 
 const DEFAULT_COUNT = 12;
 
 const AdvertsList = () => {
-  const [limit, setLimit] = useState(DEFAULT_COUNT);
+  // const [limit, setLimit] = useState(DEFAULT_COUNT);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [openAdvert, setOpenAdvert] = useState(null);
+  // const { make } = useSelector(selectFilter);
+  const [make] = useState(useSelector(selectFilter).make);
+  const itemsPerPage = useSelector(selectItemsPerPage);
+
+  // console.log(make);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (limit <= DEFAULT_COUNT) {
-      dispatch(getCountAdverts());
-    }
+    const fetchAdvertsData = async () => {
+      if (itemsPerPage <= DEFAULT_COUNT) {
+        await dispatch(getCountAdverts({ make })).unwrap();
+      }
+      dispatch(getAdverts({ itemsPerPage, make }));
+    };
 
-    dispatch(getAdverts({ limit }));
-  }, [dispatch, limit]);
+    fetchAdvertsData();
+  }, [dispatch, itemsPerPage, make]);
 
   const adverts = useSelector(selectAdverts);
   const isLoading = useSelector(selectIsLoading);
   const count = useSelector(selectCount);
   const favorites = useSelector(selectFavorites);
-  const showButton = limit < count;
+  const showButton = itemsPerPage < count;
 
   const handleLoadMore = () => {
-    setLimit((state) => state + DEFAULT_COUNT);
+    dispatch(setItemsPerPage(itemsPerPage + DEFAULT_COUNT));
+    // setLimit((state) => state + DEFAULT_COUNT);
   };
 
   const openModal = (dataAdvert) => {
@@ -68,7 +80,7 @@ const AdvertsList = () => {
           );
         })}
         {isLoading && <Loader />}
-        {count === limit}
+        {count === itemsPerPage}
         {showButton && (
           <LoadMoreBtn type="button" onClick={handleLoadMore}>
             Load More

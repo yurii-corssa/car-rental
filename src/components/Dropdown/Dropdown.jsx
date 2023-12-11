@@ -4,36 +4,17 @@ import {
   DropdownContainer,
   DropdownContent,
   DropdownItem,
-} from "./CarDropdown.styled";
+} from "./Dropdown.styled";
+import { useDispatch, useSelector } from "react-redux";
+import { setFilter } from "../../redux/adverts/advertsSlices";
+import { selectFilter } from "../../redux/adverts/advertsSelectors";
 
-const options = [
-  "Buick",
-  "Volvo",
-  "HUMMER",
-  "Subaru",
-  "Mitsubishi",
-  "Nissan",
-  "Lincoln",
-  "GMC",
-  "Hyundai",
-  "MINI",
-  "Bentley",
-  "Mercedes-Benz",
-  "Aston Martin",
-  "Pontiac",
-  "Lamborghini",
-  "Audi",
-  "BMW",
-  "Chevrolet",
-  "Chrysler",
-  "Kia",
-  "Land",
-];
-
-const CarDropdown = ({ onSelect }) => {
+const CarDropdown = ({ options, placeholder, onSelect }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(null);
+  // const [selectedOption, setSelectedOption] = useState("_");
+  const { make } = useSelector(selectFilter);
   const dropdownRef = useRef();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -58,15 +39,16 @@ const CarDropdown = ({ onSelect }) => {
   }, []);
 
   const handleSelect = (option) => {
-    setSelectedOption(option);
+    dispatch(setFilter({ make: option }));
+    // setSelectedOption(option);
     setIsOpen(false);
-    // onSelect(option);
+    onSelect(option);
   };
 
   return (
     <DropdownContainer ref={dropdownRef}>
       <DropdownButton type="button" onClick={() => setIsOpen(!isOpen)}>
-        {selectedOption || "Enter the text"}
+        {make || placeholder}
       </DropdownButton>
       {isOpen && (
         <DropdownContent>

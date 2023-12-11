@@ -2,7 +2,6 @@ import { styled } from "styled-components";
 
 export const DropdownContainer = styled.div`
   position: relative;
-  width: 200px;
 `;
 
 export const DropdownButton = styled.button`
