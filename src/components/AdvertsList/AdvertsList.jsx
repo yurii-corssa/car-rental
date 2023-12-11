@@ -1,5 +1,9 @@
 import AdvertItem from "components/AdvertItem/AdvertItem";
-import { AdvertsListContainer, LoadMoreBtn } from "./AdvertsList.styled";
+import {
+  AdvertsListContainer,
+  LoadMoreBtn,
+  LoadMoreWrapper,
+} from "./AdvertsList.styled";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectAdverts,
@@ -76,14 +80,15 @@ const AdvertsList = () => {
             />
           );
         })}
-        {isLoading && <Loader />}
-        {count === itemsPerPage}
+      </AdvertsListContainer>
+      {isLoading && <Loader />}
+      <LoadMoreWrapper>
         {showButton && (
           <LoadMoreBtn type="button" onClick={handleLoadMore}>
-            Load More
+            {isLoading ? "Loading..." : "Load More"}
           </LoadMoreBtn>
         )}
-      </AdvertsListContainer>
+      </LoadMoreWrapper>
       {isModalOpen && (
         <Modal onClose={closeModal}>
           <AdvertDetails data={openAdvert} onClose={closeModal} />
